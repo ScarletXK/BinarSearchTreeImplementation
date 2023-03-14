@@ -25,19 +25,8 @@ public class BinarySearchTree<AnyType extends Comparable<? super AnyType>> {
     public boolean contains(AnyType x){
         return contains(x, root);
     }
-    public AnyType finMin(){
-        if (isEmpty){
-            throw new UnderflowException();
-            return findMin(root).element;
-        }
-    }
-    public AnyType findMax(){
-        if (isEmpty){
-            throw new UnderflowException();
-            return findMax(root).element;
-        }
-    }
-    public static void insert(AnyType x){
+
+    public void insert(AnyType x){
         root = insert(x, root);
     }
     public void remove(AnyType x){
@@ -101,7 +90,7 @@ public class BinarySearchTree<AnyType extends Comparable<? super AnyType>> {
         }else if (compareResult > 0){
             T.right = remove(x, T.right);
         }else if (T.left != null && T.right != null){
-            T.element = finMin(T.right).element;
+            T.element = findMin(T.right).element;
             T.right = remove(T.element, T.right);
         }
         else {
@@ -111,7 +100,11 @@ public class BinarySearchTree<AnyType extends Comparable<? super AnyType>> {
         return T;
     }
     private void printTree(BinaryNode<AnyType> T){
-
+        if (T != null) {
+            printTree(T.left);
+            System.out.print(T.element + " ");
+            printTree(T.right);
+        }
     }
 
 
